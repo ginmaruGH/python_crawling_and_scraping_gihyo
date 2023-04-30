@@ -38,8 +38,5 @@ tmp/
 
 # 追加
 workspace.code-workspace
-support/
 sample_codes/
-nltk_data/
-memo.md
-reference.md
+.mypy_cache/
