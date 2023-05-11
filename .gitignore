@@ -40,3 +40,5 @@ tmp/
 workspace.code-workspace
 sample_codes/
 .mypy_cache/
+references/
+memo.md
