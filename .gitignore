@@ -38,6 +38,7 @@ tmp/
 
 # 追加
 workspace.code-workspace
+dev_memo.md
 sample_codes/
 .mypy_cache/
 references/
