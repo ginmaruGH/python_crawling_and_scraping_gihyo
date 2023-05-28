@@ -33,7 +33,8 @@ class IkeaSpider(SitemapSpider):
     # sitemap_rulesを指定しない場合、すべてのURLのコールバック関数はparseメソッドとなる。
     sitemap_rules = [
         # 製品ページをparse_productで処理する。
-        (r'/products/', 'parse_product'),
+        # (r'/products/', 'parse_product'),
+        (r'/jp/ja/p/', 'parse_product'),
     ]
 
 
@@ -41,14 +42,20 @@ class IkeaSpider(SitemapSpider):
         """
         製品ページから製品の情報を抜き出す。
         """
+        price = response.css('.pip-temp-price__integer::text').get().strip()
+        if "," in price:
+            price = price.replace(",", "")
         yield {
             # URL
             'url': response.url,
             # 名前
-            'name': response.css('#name::text').get().strip(),
+            # 'name': response.css('#name::text').get().strip(),
+            'name': response.css('.pip-header-section__title--big::text').get().strip(),
             # 種類
-            'type': response.css('#type::text').get().strip(),
+            # 'type': response.css('#type::text').get().strip(),
+            'type': response.css('.pip-header-section__description-text::text').get().strip(),
             # 価格
             # 円記号と数値の間に`\xa0`（HTMLでは、&nbsp;）が含まれるので、これをスペースに置き換える。
-            'price': response.css('#price1::text').re_first('[\S\xa0]+').replace('\xa0', ''),
+            # 'price': response.css('#price1::text').re_first('[\S\xa0]+').replace('\xa0', ''),
+            'price': price,
         }

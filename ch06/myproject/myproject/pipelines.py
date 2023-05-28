@@ -5,9 +5,28 @@
 
 
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
+# from itemadapter import ItemAdapter
 
 
-class MyprojectPipeline:
+# class MyprojectPipeline:
+#     def process_item(self, item, spider):
+#         return item
+
+
+from scrapy.exceptions import DropItem
+
+
+class ValidationPipeline:
+    """
+    Itemを検証するPipeline。
+    """
+
+
     def process_item(self, item, spider):
+        if not item['title']:
+            # titleフィールドが取得できない場合、破棄する。
+            # DropItem()の引数は破棄する理由を表すメッセージ。
+            raise DropItem('Missing title')
+
+        # titleフィールドが正しく取得できている場合。
         return item

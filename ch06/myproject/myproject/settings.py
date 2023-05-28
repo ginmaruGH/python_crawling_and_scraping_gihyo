@@ -95,3 +95,8 @@ FEED_EXPORT_ENCODING = "utf-8"
 # ページのダウンロード間隔として平均1秒空ける
 DOWNLOAD_DELAY = 1
 
+
+ITEM_PIPELINES = {
+    "myproject.pipelines.ValidationPipeline": 300,
+    "myproject.pipelines.DatabasePipeline": 800,
+}
